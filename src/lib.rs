@@ -118,6 +118,9 @@ getrandom::register_custom_getrandom!(getrandom);
 use egui::CursorIcon;
 use miniquad as mq;
 
+pub use egui;
+pub use miniquad;
+
 pub use painter::CallbackFn;
 
 #[cfg(target_os = "macos")] // https://github.com/not-fl3/miniquad/issues/172
@@ -168,7 +171,7 @@ impl EguiMq {
     pub fn run(
         &mut self,
         mq_ctx: &mut dyn mq::RenderingBackend,
-        run_ui: impl FnOnce(&mut dyn mq::RenderingBackend, &egui::Context),
+        mut run_ui: impl FnMut(&mut dyn mq::RenderingBackend, &egui::Context),
     ) {
         input::on_frame_start(&mut self.egui_input, &self.egui_ctx);
 
